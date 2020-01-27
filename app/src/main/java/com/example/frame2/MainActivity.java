@@ -1,10 +1,12 @@
 package com.example.frame2;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -14,11 +16,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements OnMovieFragmentClickListener {
 
     private ViewPager tabletframeLayout = null;
+    private Toolbar mytoolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mytoolbar = findViewById(R.id.toolbar);
 
         if (savedInstanceState == null) {
             mooveiFragment fragmentmoovei = new mooveiFragment();
@@ -37,6 +41,12 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
             myFragment.add(fragment2.newIntent((datamoovei) MainActivity.arryListMooveis().get(i)));
         }
         return myFragment;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
     }
 
     static ArrayList arryListMooveis() {
