@@ -1,9 +1,10 @@
 package com.example.frame2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.FrameLayout;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +24,25 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mytoolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mytoolbar);
+        mytoolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()== R.id.menu_async)
+                {
+                    Log.e("menu_async","menu_async");
+                    Intent intent = new Intent(getApplicationContext(), AcyncMain.class);
+                    startActivity(intent);
+                }
+                else if(item.getItemId()== R.id.menu_threads)
+                {
+                    Log.e("menu_threads","menu_threads");
+                    Intent intent = new Intent(MainActivity.this, Thread_main.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
 
         if (savedInstanceState == null) {
             mooveiFragment fragmentmoovei = new mooveiFragment();
@@ -46,8 +66,11 @@ public class MainActivity extends AppCompatActivity implements OnMovieFragmentCl
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+
+
         return true;
     }
+
 
     static ArrayList arryListMooveis() {
         ArrayList<datamoovei> arr = new ArrayList<datamoovei>();
